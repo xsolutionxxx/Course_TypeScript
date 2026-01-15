@@ -1,21 +1,34 @@
-const isBirthdayData: boolean = false;
-let ageData: number = 30;
-const userNameData: string = "Bob";
+const userData = {
+  name: "Bob",
+  age: 30,
+  isBirthday: true,
+  messages: {
+    error: "An unexpected error occurred.",
+  },
+};
 
 const createError = (message: string) => {
   throw new Error(message);
 };
 
-function logBrtMsg(isBirthday: boolean, age: number, userName: string): string {
-  if (isBirthday === true) {
-    return `Happy Birthday, ${userName.toUpperCase()}! You are now ${
+function logBrtMsg({
+  isBirthday,
+  age,
+  name,
+  messages: { error },
+}: {
+  isBirthday: boolean;
+  age: number;
+  name: string;
+  messages: { error: string };
+}): string {
+  if (isBirthday) {
+    return `Happy Birthday, ${name.toUpperCase()}! You are now ${
       age + 1
     } years old.`;
-  } else if (isBirthday === false) {
-    return "Not your birthday";
+  } else {
+    return createError(error);
   }
-
-  return createError("Invalid birthday status"); // never
 }
 
-console.log(logBrtMsg(isBirthdayData, ageData, userNameData));
+console.log(logBrtMsg(userData));
