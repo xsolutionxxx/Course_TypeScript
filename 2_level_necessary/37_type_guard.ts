@@ -1,7 +1,9 @@
 function printMsg(msg: string[] | number | boolean): void {
     if (Array.isArray(msg)) {
+        // <= type guard
         msg.forEach((m) => console.log(m));
-    } else if (isNumber(msg)) {
+    } else if (typeof msg === "number") {
+        // <= type guard
         console.log(msg);
     } else {
         console.log(msg);
@@ -14,6 +16,7 @@ printMsg(4);
 // function isNumber(n: string[] | number | boolean): n is number {
 // 	return typeof n === "number";
 // }
+
 function isNumber(n: unknown): n is number {
     return typeof n === "number";
 }
@@ -37,7 +40,7 @@ function repairVehicle(vehicle: Car | Ship) {
     } else if (isShip(vehicle)) {
         vehicle;
     } else {
-        vehicle;
+        vehicle; // подія до якої ми ніколи не дійдемо приймає тип never
     }
 }
 
