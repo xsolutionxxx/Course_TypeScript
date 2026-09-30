@@ -1,18 +1,24 @@
 // Создать Generic-интерфейс PlayerData, который подходил бы для создания таких объектов:
 
-const player1 = {
+interface PlayerData<Game, Hours> {
+    game: Game;
+    hours: Hours;
+    server: string;
+}
+
+const player1: PlayerData<string, number> = {
     game: "CS:GO",
     hours: 300,
     server: "basic",
 };
 
-const player2 = {
+const player2: PlayerData<number, string> = {
     game: 2048,
     hours: "300 h.",
     server: "arcade",
 };
 
-const player3 = {
+const player3: PlayerData<string, object> = {
     game: "Chess",
     hours: {
         total: 500,
@@ -30,6 +36,13 @@ const player3 = {
 // С текущими данными в консоль должно попадать:
 // { squares: 3, circles: 2, triangles: 2, others: 1 }
 
+enum FigureNames {
+    Rect = "rect",
+    Circle = "circle",
+    Triangle = "triangle",
+    Line = "line",
+}
+
 interface AmountOfFigures {
     squares: number;
     circles: number;
@@ -37,39 +50,71 @@ interface AmountOfFigures {
     others: number;
 }
 
-function calculateAmountOfFigures(figure): AmountOfFigures {}
+interface Figure {
+    name: FigureNames;
+}
+
+function calculateAmountOfFigures<T extends Figure>(
+    figure: T[],
+): AmountOfFigures {
+    const FiguresAmount: AmountOfFigures = {
+        squares: 0,
+        circles: 0,
+        triangles: 0,
+        others: 0,
+    };
+
+    figure.forEach((item) => {
+        switch (item.name) {
+            case FigureNames.Rect:
+                FiguresAmount.squares++;
+                break;
+            case FigureNames.Circle:
+                FiguresAmount.circles++;
+                break;
+            case FigureNames.Triangle:
+                FiguresAmount.triangles++;
+                break;
+            default:
+                FiguresAmount.others++;
+                break;
+        }
+    });
+
+    return FiguresAmount;
+}
 
 const data = [
     {
-        name: "rect",
+        name: FigureNames.Rect,
         data: { a: 5, b: 10 },
     },
     {
-        name: "rect",
+        name: FigureNames.Rect,
         data: { a: 6, b: 11 },
     },
     {
-        name: "triangle",
+        name: FigureNames.Triangle,
         data: { a: 5, b: 10, c: 14 },
     },
     {
-        name: "line",
+        name: FigureNames.Line,
         data: { l: 15 },
     },
     {
-        name: "circle",
+        name: FigureNames.Circle,
         data: { r: 10 },
     },
     {
-        name: "circle",
+        name: FigureNames.Circle,
         data: { r: 5 },
     },
     {
-        name: "rect",
+        name: FigureNames.Rect,
         data: { a: 15, b: 7 },
     },
     {
-        name: "triangle",
+        name: FigureNames.Triangle,
     },
 ];
 

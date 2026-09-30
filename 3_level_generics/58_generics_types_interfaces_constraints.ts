@@ -57,7 +57,7 @@ const user: User<{ mother: string; father: string; married: boolean }> = {
 
 depositMoney(500);
 depositMoney("500"); */
-// depositMoney(false); // помилка
+// depositMoney(false); // Error
 
 const depositMoney = (amount: number | string): number | string => {
     console.log(`req to server with amount: ${amount}`);
@@ -66,4 +66,4 @@ const depositMoney = (amount: number | string): number | string => {
 
 depositMoney(500);
 depositMoney("500");
-// depositMoney(false); // помилка
+// depositMoney(false); // Error
