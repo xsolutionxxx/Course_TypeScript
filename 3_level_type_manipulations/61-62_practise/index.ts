@@ -6,7 +6,39 @@
 // Простыми словами: при добавлении свойства в целевой объект они должны быть
 // автоматически добавлены в зависимые (сразу подсказка от TS)
 
-const fitnessClubCenter = {
+interface IFitnessClass {
+    name: string;
+    startsAt: string;
+    duration: number;
+}
+
+interface IFutureFitnessClass extends Omit<IFitnessClass, "startsAt"> {
+    willStartsAt: string;
+}
+
+interface IClient {
+    name: string;
+    age: string | number;
+    gender: "male" | "female";
+    timeLeft: string;
+    makeCallFor: Date;
+}
+
+type CurrClient = Omit<IClient, "makeCallFor">;
+type ExClient = Omit<IClient, "timeLeft">;
+type FutureClient = Pick<IClient, "name" | "makeCallFor">;
+
+interface FitnessClub {
+    clubName: string;
+    location: string;
+    classes: IFitnessClass[];
+    futureClasses: IFutureFitnessClass[];
+    currClients: CurrClient[];
+    exClients: ExClient[];
+    futureClients: FutureClient[];
+}
+
+const fitnessClubCenter: FitnessClub = {
     clubName: "Fitness club Center",
     location: "central ave. 45, 5th floor",
     classes: [
