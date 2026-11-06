@@ -23,8 +23,7 @@ interface ToDo {
             toDoList.push(json);
         }
         console.log(toDoList);
-    });
- */
+    }); */
 
 fetch("https://jsonplaceholder.typicode.com/todos")
     .then((response) => response.json())
